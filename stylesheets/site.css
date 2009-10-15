@@ -1,0 +1,19 @@
+#content_left {
+	float: left;
+}
+
+#content_right {
+	float: right;
+}
+
+#wrapper {
+	width:500px;
+	margin:0px auto;
+	text-align:left;
+	padding:15px;
+	border:1px dashed #ddd;
+}
+
+.clear {
+	clear: both;
+}
