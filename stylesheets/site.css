@@ -1,3 +1,35 @@
+a,
+a:hover,
+a:visited {
+	color: #ee1133; /* red */
+	text-decoration: none;
+}
+
+body {
+	background: #222222; /* charcoal */
+	font-family: Monaco, Tahoma, sans-serif;
+}
+
+h1,h2,h3,h4,h5 {
+	color: #ee1133; /* red */
+}
+
+#archive {
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+	margin: 20px auto;
+	width: 600px;
+}
+
+#archive a {
+    float: left;
+}
+
+#archive abbr {
+	float: right;
+}
+
 #content_left {
 	float: left;
 }
@@ -7,13 +39,18 @@
 }
 
 #wrapper {
-	width:500px;
+	width:650px;
 	margin:0px auto;
 	text-align:left;
 	padding:15px;
 	border:1px dashed #ddd;
+	background: #fefefe;
 }
 
 .clear {
 	clear: both;
+}
+
+.date {
+	color: #aaaaaa;
 }

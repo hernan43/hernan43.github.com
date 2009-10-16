@@ -1,8 +1,8 @@
 ---
 layout: master
 ---
-<div class='post'>
+<div class="post">
   <h1><a href='{{page.url}}'>{{page.title}}</a></h1>
-  <div class='date'>posted {{page.date | date_to_string}}</div>
-  <div class='body'>{{ content }}</div>
+  <span class="date">published {{ page.date | date_to_string }}</span>
+  <p>{{ content }}</p>
 </div>
