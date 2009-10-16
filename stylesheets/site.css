@@ -19,7 +19,7 @@ h1,h2,h3,h4,h5 {
 	list-style-position:outside;
 	list-style-type:none;
 	margin: 20px auto;
-	width: 600px;
+	width: 550px;
 }
 
 #archive a {
@@ -30,6 +30,10 @@ h1,h2,h3,h4,h5 {
 	float: right;
 }
 
+#content {
+	padding: 15px;
+}
+
 #content_left {
 	float: left;
 }
@@ -38,11 +42,21 @@ h1,h2,h3,h4,h5 {
 	float: right;
 }
 
+#header {
+	padding: 15px;
+}
+
+#footer {
+	background: #eeeeee;
+	border-top: 1px dotted #222222;
+	font-size: 0.9em;
+	padding: 10px;
+}
+
 #wrapper {
 	width:650px;
 	margin:0px auto;
 	text-align:left;
-	padding:15px;
 	border:1px dashed #ddd;
 	background: #fefefe;
 }
