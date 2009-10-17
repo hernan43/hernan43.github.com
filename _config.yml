@@ -10,6 +10,6 @@ maruku:
   png_url:    /images/latex
 
 pygments: true
-lsi: false
+lsi: true
 paginate: 20
 

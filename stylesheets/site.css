@@ -7,11 +7,16 @@ a:visited {
 
 body {
 	background: #222222; /* charcoal */
+	color: #444444;
 	font-family: Monaco, Tahoma, sans-serif;
 }
 
 h1,h2,h3,h4,h5 {
 	color: #ee1133; /* red */
+}
+
+h1,h2 {
+	margin-top: 0px;
 }
 
 #archive {

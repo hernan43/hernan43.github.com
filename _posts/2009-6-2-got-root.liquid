@@ -1,0 +1,75 @@
+---
+title: Got Root?
+layout: post
+---
+<p>I was walking to lunch this afternoon and for some reason I conjured up a long lost memory. A memory from a headier time when I was a young college student. I worked for a small department on campus at <a href="http://msu.edu">Michigan State University</a> as a Linux system administrator. 
+</p>
+<p>This was not a memory of a great triumph or some great prank. This was a memory of an event that changed my life as a coder and as a sysadmin. The memory that came into my head was of the very first(and hopefully last) time I got rooted.
+</p>
+<!--more-->
+<p>As I sit here typing this up on a rainy evening, I am reminded of the day it happened. It was an early morning just as a rainstorm was finishing up drenching everything. It was mildly foggy as I walked into the now demolished Paolucci building on the campus of <a href="http://www.msu.edu/" title="Michigan State University">Michigan State University</a>.
+</p>
+<h3>Prologue</h3>
+
+<p>I came upstairs to the student office and was greeted by a fellow student. "Some guy from the Computer Center called. He said something was wrong with one of our computers. He wanted you to call him as soon as you got in. Also they shut off the internet connection to our building."
+</p>
+<p>"What the hell? What could have been wrong with one of our machines. We only have a couple that do anything of any substance." I sat down and started dialing the number my coworker gave me. The person on the other end of the phone told me that one of our boxes had been hacked, and that it was DDoS'ing the campus network hardware north of the river. It was causing network trouble so they shut off our building's network connection. He also told me to touch nothing, he was going to be there in a little bit.
+</p>
+<p>Needless to say there was no way I was going to not touch anything. Sorry security dudes. I promptly logged onto the machine and started poking around. Even with my limited knowledge I was able to somewhat easily find out what was the cause of all the trouble. The attacker didn't even really make any attempt to cover their tracks. Luckily this machine was a new install so it didn't have anything I couldn't stand to lose.
+</p>
+<h3>The Day Before</h3>
+
+<p>The day before I decided to setup a <a href="http://en.wikipedia.org/wiki/Dhcp" title="Dynamic Host Configuration Protocol - Wikipedia, the free encyclopedia">DHCP</a> server for my office to allocate IPs to the various laptops, desktops, and whatnot that were in our office. I thought it would be a clever use of my time and maybe I'd learn something new, and boy was I right!
+</p>
+<p>That same day I installed a copy of <a href="http://www.redhat.com/" title="redhat.com | The World's Open Source Leader">RedHat</a>(which was probably version 6.2 or 7). After the install finished I booted it up and left for lunch with a hungry belly and a promise to come back later and finish setting everything up.
+</p>
+<p>Well as it turns out I forgot all about the box and got caught up with other things to do. I finished out my day and left for home, thinking of better days and brighter futures.
+</p>
+<h3>Meeting the Security Dude</h3>
+
+<p>So that leads me into the next day. Or as I like to call it, <strong>The Day I Learned What "Owned" Meant</strong>. There I was waiting for the <strong>Security Dude</strong> to show up. My heart was pounding. What were they going to do? What were they going to say? Was I going to get fired? Were they going to think I did it? It was too late to think about all that the <strong>Security Dude</strong> was here. The interaction went something like this:
+</p>
+<p>
+<table border="1" cellpadding="5">
+	<tr>
+		<td>Bud</td>
+		<td>"Hello. My name is Security J. Dude III. Nice to meet you. You may call me, Bud."</td>
+	</tr>
+	<tr>
+		<td>Me</td>
+		<td>Hey, my name is hernan43. <em>Oh well, that wasn't so bad. He seemed nice. He even let me call him by a nickname(I changed the name in case you couldn't tell).</em> 
+		</td>
+	</tr>
+	<tr>
+		<td>Bud</td>
+		<td>Did you make sure not to touch anything?</td>
+	</tr>
+	<tr>
+		<td>Me</td>
+		<td>Uh well I logged in before I called you and poked around, but I haven't messed with it after that. <em>Oh yeah I lied like my life depended on it.</em></td>
+	</tr>
+</table>
+</p>
+
+<p>Bud either bought my lie or did a good job at faking annoyance at my ignorance, either way he sat down at the affected machine and got to work. He typed in a series of seemingly complicated commands and watched the text scroll by soaking in all of the information before turning in his chair to address me.
+</p>
+<p>Bud informed me that the particular version of RedHat I used installed an ftp server by default that had a known exploit. He told me the attacker used a rootkit to assume control of the machine. He showed me the terminal where he had one of the system logs being displayed. He pointed to a single line, "Right here is the point where you were pretty much owned."
+</p>
+<p>He mentioned that had I left the machine alone it would have been more likely that it could have been used to catch the attacker. Finally he told me about <a href="http://www.tripwire.com/" title="Configuration Control - Tripwire">Tripwire</a> and the importance of installing the OS with the network unplugged until I was in a position to patch it.
+</p>
+<p>Bud was a little cheesed that I was trying to setup my own DHCP server in the office since there was a possibility that if I didn't configure it correctly it could interfere with the main campus DHCP service. 
+</p>
+<p>Despite the situation he was pretty kind and understanding. I was expecting him to chastise me for being such a dilettante, but I guess he sees this stuff so often that he probably couldn't help but feel sorry for me.
+</p>
+<h3>The Aftermath</h3>
+
+<p>Once Bud was finished, he told me that they would reactivate our network when he got back to his office since he was pretty much confident that the problem was solved.
+</p>
+<p>I was worried that I was in some major caca when my boss got in, but when I told him the story he seemed indifferent. "Did anything get taken?" "No" "Did they turn the internet back on?" "Yes" "Ok well, don't do it again. Back to work."
+</p>
+<p>I learned many a valuable lesson that day. Specifically I started taking security way more seriously. I started believing people when they said things like, "someone can crack your machine at the drop of a hat so make sure you lock down XYZ thing."
+</p>
+<p>Luckily for me I have not been rooted since. It is a feeling that I do not want to experience ever again. Even when I was a "green as green" green horn and I knew it, I still felt embarrassed beyond belief having to look Bud in the eye and come to grips with the fact that I got a box rooted. I can only imagine how low I would feel today. 
+</p>
+<p>Hmm... I better stop typing and check my patches...
+</p>
