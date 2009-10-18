@@ -1,0 +1,84 @@
+---
+title: My so called Hacker Blog
+layout: post
+---
+
+After trying out "Wordpress":http://www.wordpress.com for a few months now, I've decided to leave it in favor of "GitHub Pages":http://pages.github.com/ and "Jekyll":http://wiki.github.com/mojombo/jekyll. Jekyll is a static site generator with a penchant for blogs.
+
+Years ago, I used to use a piece of software called, "PyBlosxom":http://pyblosxom.sourceforge.net/. PyBlosxom is a Python based blog generator, that stores posts in individual files and can be used to generate a static site.
+
+Much like PyBlosxom, Jekyll also stores blog posts in flat text files. It can process many of the most popular markup engines and is highly customizable. One nice feature of Jekyll is that it is what powers GitHub Pages, and therefore you are able to use your free GitHub account to run a blog.
+
+My favorite part about this is that I can edit posts using "VIM":http://vim.org, push the changes to GitHub, and *BOOM!* My blog is updated.
+
+h3. Why leave Wordpress?
+
+I really like the Wordpress blogging platform. It is free, extensible, and has a really nice administrative interface. 
+
+_But I am a hacker at heart._ 
+
+I like the idea of using a simple text editor and some command line tools to be able to publish new posts. I also like the idea of having a distributed, version controlled copy of my blog site.
+
+h3. Migrating my Wordpress posts
+
+I hemmed and hawed about whether I should take my "Wordpress.com":http://wordpress.com posts along with me on this new adventure. Jekyll had a "bunch of converters":http://wiki.github.com/mojombo/jekyll/blog-migrations for the popular blog engines, including Wordpress, but they required database access. Since my blog was on Wordpress.com, I only had access to an XML dump of all my posts.
+
+Relenting, I decided to bring my old posts over. I used "Hpricot":http://github.com/whymirror/hpricot to whip up a simple shell script that would parse out all of my old posts, and convert them to the "Jekyll file convention":http://wiki.github.com/mojombo/jekyll/usage.
+
+{% highlight ruby %}
+#!/usr/bin/env ruby
+#
+# usage:
+# ./wordpress_xml_to_jekyll.rb wordpress.xml <jekyll-dir>/_posts
+#
+
+require 'rubygems'
+require 'hpricot'
+require 'erb'
+
+# my posts are pretty basic
+post_template = ERB.new <<-EOF
+---
+title: <%= title %>
+layout: post
+---
+<%= content %>
+EOF
+
+# wordpress xml file
+xml_file = ARGV[0]
+# where to put the posts, i.e. <jekyll_dir>/_posts/
+output_dir = ARGV[1]
+
+# read xml in
+xml = open(xml_file).read
+# convert to Hpricot object
+doc = Hpricot(xml)
+
+(doc/"item").each do |item|
+  # get the particulars for each post
+  title = "#{item.search('title').first.inner_text}"
+  slug = item.search("wp:post_name").first.inner_text
+  date = DateTime.parse(item.search("wp:post_date").first.inner_text)
+  content = item.search("content:encoded").first.inner_text
+  # create a file name for the post
+  file_name = "#{date.year}-#{date.month}-#{date.day}-#{slug}.liquid"
+  output_file = File.join(output_dir, file_name)
+  # render my ERB template
+  file_contents = post_template.result(binding)
+  
+  file = open(output_file, 'w')
+  # write the post to its respective file
+  file.write(file_contents)
+end
+{% endhighlight %}
+<br/>
+
+h3. Wanna try blogging with Jekyll?
+
+Here are some really good resources on using Jekyll, Git, and GitHub Pages.
+
+ * "Jekyll Wiki":http://wiki.github.com/mojombo/jekyll
+ * "Publishing a Blog with GitHub Pages and Jekyll":http://blog.envylabs.com/2009/08/publishing-a-blog-with-github-pages-and-jekyll/
+ * "GitHub Pages":http://pages.github.com/
+ * "The Pro Git Book - great resource on using git":http://progit.org/

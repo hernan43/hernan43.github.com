@@ -48,6 +48,10 @@ h1,h2,h3 {
 	float: right;
 }
 
+#github-badge {
+	float: right;
+}
+
 #header {
 	padding: 15px;
 }
