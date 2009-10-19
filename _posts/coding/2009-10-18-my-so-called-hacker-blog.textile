@@ -9,7 +9,7 @@ Years ago, I used to use a piece of software called, "PyBlosxom":http://pyblosxo
 
 Much like PyBlosxom, Jekyll also stores blog posts in flat text files. It can process many of the most popular markup engines and is highly customizable. One nice feature of Jekyll is that it is what powers GitHub Pages, and therefore you are able to use your free GitHub account to run a blog.
 
-My favorite part about this is that I can edit posts using "VIM":http://vim.org, push the changes to GitHub, and *BOOM!* My blog is updated.
+My favorite part about this is that I can edit posts using "VIM":http://www.vim.org, push the changes to GitHub, and *BOOM!* My blog is updated.
 
 h3. Why leave Wordpress?
 
