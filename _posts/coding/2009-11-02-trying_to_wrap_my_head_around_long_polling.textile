@@ -1,0 +1,65 @@
+---
+title: Wrapping my brain around long polling with Orbited/Rails
+layout: post
+---
+
+I've been reading about "Comet/long polling":http://en.wikipedia.org/wiki/Comet_(programming) for a while now. It seems to be becoming a popular topic of discussion. There are a lot of opinions and theories on it. Not having any experience with it myself, I've only pseudo-understood what it was.
+
+Wikipedia has "a nice breakdown":http://en.wikipedia.org/wiki/Comet_(programming) of what it is. Basically, it is a way for a web application to 'push' data to the client using long running HTTP requests.
+
+Now that I've gotten around to reading up on it, I decided a week or so ago to try and do a simple implementation of it. I noticed that a lot of people use the chat room concept with Comet, so I decided to try and make a simple app that implemented a chat room. Kind of like when I discovered "Ruby on Rails":http://rubyonrails.org/, I decided to do the quintessential 'make a blog with rails' experiment.
+
+h3. Try #1 - Nginx push module
+
+Without knowing any better, I decided to try out the new-ish "Nginx http push module":http://github.com/slact/nginx_http_push_module. I'm familiar enough with "Nginx":http://nginx.net/. I figured it would be easy. It sort of was.
+
+I followed the instructions for install Nginx with the http push module. Everything seemed to work as advertised. I even tried the sample code from "Nginx & Comet: Low Latency Server Push":http://www.igvita.com/2009/10/21/nginx-comet-low-latency-server-push/. Everything worked as advertised. I was pretty impressed.
+
+In my app I used the "delayed_job":http://github.com/collectiveidea/delayed_job plugin to queue messages to be sent to the publish URL. For the most part it appeared to be working correctly. I could see the messages entering the queue and I could see that they were getting published to my Nginx polling server.
+
+Unfortunately, my Javascript/"Prototype":http://prototypejs.org skills are _clearly_ not up to par. I was unable to get my chat room to work reliably. It would only receive messages sometimes and it seemed to lose track of my polling server.
+
+I spent a day trying to figure out what I was doing wrong and finally threw my hands up in defeat, grabbed my Xbox controller, and cooled off to some "Borderlands":http://www.borderlandsthegame.com/.
+
+h3. Try #2 - Orbited
+
+The difference between my first try and this try were night and day. The "Orbited":http://orbited.org/ setup was seemingly simpler than my Nginx one.
+
+Orbited is a "Python":http://python.org server using the "Twisted":http://twistedmatrix.com/trac/ framework. Twisted is an extremely stable/reliable networking framework. It has been around for as long as I have been using Python
+
+Instead of having to have Nginx running + Apache + the delayed job runner running, I could slim it down to just Apache + Orbited. Also the "Orbited plugin":http://github.com/mallio/orbited made integration into Rails *extremely* easy. Installing the plugin created a config file with defaults set the same as the defaults in the Orbited config. So I really didn't have to configure it to point to Orbited at all.
+
+In my HTML template I had to add the following to my head section:
+
+{% highlight "ruby" %}
+<%= orbited_javascript %>
+{% endhighlight %}
+
+And then for the chat channels I just did:
+
+{% highlight "ruby" %}
+<%= stomp_connect(params[:slug]) %>
+{% endhighlight %}
+
+The @params[:slug]@ variable is set to whatever my current chat channel is. It was really simple.
+
+In my messages controller I have a private method called @send_message_via_orbited(message)@. This method sends newly created messages to the default Orbited STOMP service("MorbidQ":http://www.morbidq.com/) and then to my channel's page.
+
+{% highlight 'ruby' %}
+def send_message_via_orbited(message)
+  orbited_data = render_to_string :update do |page|
+    page.insert_html :bottom, 
+		'messages', 
+		:partial => 'channels/message', 
+		:locals => {:message => message}
+    page['message_form'].down('form').reset
+  end
+  Orbited.send_data(message.channel.name, orbited_data)
+end
+{% endhighlight %}
+
+All this code does is updated the messages div with the new message. This is done via "RJS":http://api.rubyonrails.org/classes/ActionView/Helpers/PrototypeHelper/JavaScriptGenerator/GeneratorMethods.html which sends Javascript through Orbited to the page where it is eval'd.
+
+h3. Aaaaaaand done!
+
+Orbited was extremely easy and worked pretty reliably for the little bit of testing that I did. You can browse the source on "GitHub":http://github.com, I called it "pollchat":http://github.com/hernan43/pollchat.
