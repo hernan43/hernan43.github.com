@@ -29,6 +29,6 @@ c.classify "#{tweet.content}"
 
 Using the above code I can train my tweet classification database and determine which tweets are interesting and which ones aren't.
 
-So far, I have only done one round of testing. I trained about 30 - 40 tweets and ran the classifier on at least another 30 - 40. I am pretty surprised at the accuracy. The ones it marked as being uninteresting were ones I would have normally ignored. The ones it marked as interesting were ones I would mostly consider worth reading. At least as worth reading as a tweet can be ;-).
+So far, I have only done one round of testing. I trained about 30-40 tweets and ran the classifier on at least another 30-40. I am pretty surprised at the accuracy. The ones it marked as being uninteresting were ones I would have normally ignored. The ones it marked as interesting were ones I would mostly consider worth reading. At least as worth reading as a tweet can be ;-).
 
 This first experiment has paved the way for me to expand this into a bigger project. Considering I am not particularly happy with any one Twitter client, I think I may write my own and incorporate the Bayesian classification. At least as an excuse to play with this idea a bit more.
