@@ -1,0 +1,34 @@
+---
+title: Filtering my tweet spam with Ruby
+layout: post
+---
+
+I watched "Hillary Mason's":http://www.hilarymason.com/blog/ video titled "How to Replace Yourself with a Very Small Shell Script":http://www.hilarymason.com/blog/ignitenyc-how-to-replace-yourself-with-a-very-small-shell-script/ a few weeks ago, and it got my creative juices flowing. The gist of the video was that by using document classification you could determine the importance of an email message.
+
+In the video Hillary suggests using this method on your Twitter feed. This was where I got all fired up. It is all too common for me to hear "Tweetie":http://www.atebits.com/tweetie-mac/ bleep, I swivel my chair around to see what new tidbit someone has tweeted to find, "I like candy..." Or some other inane pap.
+
+If I could use "some method of document classification":http://en.wikipedia.org/wiki/Naive_Bayes_classifier, maybe I could train a Twitter client to identify which tweets where interesting, I could avoid the constant "need coffee" tweets. A ha!
+
+Enter the "Ruby classifier gem":http://classifier.rubyforge.org/. The classifier gem takes care of all the mathematical leg for you. It makes it a simple exercise to train my tweets as being 'interesting' or 'uninteresting'. At least in theory.
+
+{% highlight "ruby" %}
+
+# create my classifier
+c = Classifier::Bayes.new
+c.add_category "interesting"
+c.add_category "uninteresting"
+
+# train items
+c.train 'uninteresting', "#{uninteresting_tweet.content}"
+c.train 'interesting', "#{interesting_tweet.content}"
+
+# classify/guess which type of tweet it is
+c.classify "#{tweet.content}"
+
+{% endhighlight %}
+
+Using the above code I can train my tweet classification database and determine which tweets are interesting and which ones aren't.
+
+So far, I have only done one round of testing. I trained about 30 - 40 tweets and ran the classifier on at least another 30 - 40. I am pretty surprised at the accuracy. The ones it marked as being uninteresting were ones I would have normally ignored. The ones it marked as interesting were ones I would mostly consider worth reading. At least as worth reading as a tweet can be ;-).
+
+This first experiment has paved the way for me to expand this into a bigger project. Considering I am not particularly happy with any one Twitter client, I think I may write my own and incorporate the Bayesian classification. At least as an excuse to play with this idea a bit more.
