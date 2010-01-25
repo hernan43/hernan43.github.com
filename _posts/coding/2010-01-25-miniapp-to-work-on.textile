@@ -1,0 +1,12 @@
+---
+title: Finally something to work on
+layout: post
+---
+
+Months ago, I became inspired by "Giles Bowkett's":http://gilesbowkett.blogspot.com idea of doing a miniapp a month. He made a very cool app to read "Hacker News":http://news.ycombinator.com in the format of a "traditional newspaper":http://gilesbowkett.blogspot.com/2009/04/miniapp-hacker-newspaper.html.
+
+I am always in the process of developing my skills, so I thought the concept of using miniapp development was awesome. I can come up with an idea for a simple app, then start working on it. I'm not prolific enough to do one per month, but I figure something is better than nothing.
+
+Recently, I've become obsessed with learning more and more about MongoDB:"http://mongodb.org". After reading scads of articles on MongoDB and "mongomapper":http://github.com/jnunemaker/mongomapper on "John Nunemaker's":http://railstips.org blog I decided I just have to wrap my head around MongoDB and figure out if it is something that is valuable to me.
+
+Having trouble as I usually do trying to figure out what miniapp to work on next, I think I've finally come up with something that I can work on that will snuggle up with MongoDB nicely. I don't want to get into what it is just yet. If I did and found out I was out of my depth I'd feel like a total nozzle. So hopefully you can watch this space and see what I come up with.
